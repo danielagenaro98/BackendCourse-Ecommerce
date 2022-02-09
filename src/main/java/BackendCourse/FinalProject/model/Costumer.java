@@ -13,4 +13,5 @@ public class Costumer {
     private String email;
     private String password;
     private String userName;
+    private String address;
 }

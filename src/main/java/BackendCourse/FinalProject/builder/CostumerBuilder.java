@@ -10,6 +10,7 @@ public class CostumerBuilder {
                 .userName(request.getUserName())
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .address(request.getAddress())
                 .build();
     }
 
