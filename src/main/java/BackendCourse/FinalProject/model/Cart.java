@@ -17,4 +17,12 @@ public class Cart {
     public void addItem(CartItem item) {
         this.items.add(item);
     }
+
+    public List<OrderItem> generateOrderItems() {
+        List<OrderItem> res = null;
+        for(CartItem item :items){
+            res.add(new OrderItem(item.getProduct(), item.getQuantity(), item.getProduct().getPrice()));
+        }
+        return res;
+    }
 }
