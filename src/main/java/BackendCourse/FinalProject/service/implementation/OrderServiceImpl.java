@@ -9,6 +9,7 @@ import BackendCourse.FinalProject.repository.CartRepository;
 import BackendCourse.FinalProject.repository.CostumerRepository;
 import BackendCourse.FinalProject.repository.OrderRepository;
 import BackendCourse.FinalProject.service.OrderService;
+import BackendCourse.FinalProject.service.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.aggregation.ArithmeticOperators;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class OrderServiceImpl implements OrderService {
     private final CartRepository cartRepository;
     private final CostumerRepository costumerRepository;
     private final OrderRepository orderRepository;
+    private final EmailService emailService;
 
     @Override
     public CreateResponseHandle createOrder(String email, String state) throws OrderException {
@@ -33,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         orderRepository.save(OrderBuilder.requestToDocument(cart, costumer, state, orderNumber));
+        emailService.sendMail(costumer.getEmail(), "Nueva orden", "La orden fue creada exitosamente");
         return OrderBuilder.documentToResponse("la orden se creo correctamente");
     }
 }
